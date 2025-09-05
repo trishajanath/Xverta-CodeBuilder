@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Editor from './Editor';
-import './CodeBuilder.css';
+import CodeEditor from './CodeEditor';
+import CodePreview from './CodePreview';
+import PromptInput from './PromptInput';
 
 function CodeBuilder() {
-  const [prompt, setPrompt] = useState('');
   const [code, setCode] = useState('// Your generated code will appear here');
-  const [language, setLanguage] = useState('python');
+  const [language, setLanguage] = useState('javascript');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleGenerateCode = async () => {
-    if (!prompt.trim()) {
-      setError('Please enter a prompt');
-      return;
-    }
-
+  const handleGenerate = async (prompt, selectedLanguage) => {
     setIsLoading(true);
     setError('');
+    setLanguage(selectedLanguage);
 
     try {
       const formData = new FormData();
       formData.append('prompt', prompt);
-      formData.append('language', language);
+      formData.append('language', selectedLanguage);
 
       const response = await axios.post('http://localhost:8000/generate-code', formData);
       
@@ -42,67 +38,34 @@ function CodeBuilder() {
     }
   };
 
-  const languageOptions = [
-    { value: 'python', label: 'Python' },
-    { value: 'javascript', label: 'JavaScript' },
-    { value: 'typescript', label: 'TypeScript' },
-    { value: 'java', label: 'Java' },
-    { value: 'csharp', label: 'C#' },
-    { value: 'cpp', label: 'C++' },
-    { value: 'go', label: 'Go' },
-    { value: 'rust', label: 'Rust' },
-  ];
-
   return (
-    <div className="code-builder">
-      <h1>Xverta Code Builder</h1>
-      
-      <div className="control-panel">
-        <div className="prompt-container">
-          <label htmlFor="prompt">Describe the code you want to generate:</label>
-          <textarea
-            id="prompt"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder="E.g., Write a function to calculate fibonacci numbers"
-            rows={4}
-          />
-        </div>
-        
-        <div className="options">
-          <div className="language-selector">
-            <label htmlFor="language">Language:</label>
-            <select
-              id="language"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-            >
-              {languageOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+    <div className="flex flex-col h-full space-y-4">
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">Xverta Code Builder</h1>
+        <PromptInput onGenerate={handleGenerate} isLoading={isLoading} />
+        {error && (
+          <div className="mt-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700">
+            {error}
           </div>
-          
-          <button 
-            onClick={handleGenerateCode}
-            disabled={isLoading || !prompt.trim()}
-            className="generate-btn"
-          >
-            {isLoading ? 'Generating...' : 'Generate Code'}
-          </button>
-        </div>
-        
-        {error && <div className="error-message">{error}</div>}
+        )}
       </div>
       
-      <div className="editor-section">
-        <Editor 
-          code={code} 
-          language={language} 
-          onChange={setCode} 
-        />
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 h-[calc(100vh-280px)]">
+        <div className="h-full">
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">Editor</h2>
+          <CodeEditor 
+            code={code} 
+            language={language} 
+            onChange={setCode} 
+          />
+        </div>
+        <div className="h-full">
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">Preview</h2>
+          <CodePreview 
+            code={code} 
+            language={language} 
+          />
+        </div>
       </div>
     </div>
   );

@@ -70,7 +70,7 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
         {/* Sidebar - Project Structure (Future Enhancement) */}
-        <Sidebar onSelectTemplate={handleGenerate} />
+        <Sidebar />
         
         {/* Main Workspace */}
         <div className="flex-1 flex flex-col overflow-hidden">
