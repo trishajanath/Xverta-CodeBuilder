@@ -1,0 +1,99 @@
+.code-builder {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.control-panel {
+  margin-bottom: 20px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prompt-container {
+  margin-bottom: 15px;
+}
+
+.prompt-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+select {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-size: 14px;
+}
+
+.generate-btn {
+  background-color: #4285f4;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.generate-btn:hover {
+  background-color: #3367d6;
+}
+
+.generate-btn:disabled {
+  background-color: #a8c7fa;
+  cursor: not-allowed;
+}
+
+.editor-section {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.editor-container {
+  border: 1px solid #ddd;
+}
+
+.error-message {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 15px 0 0;
+  border-left: 4px solid #d32f2f;
+}
