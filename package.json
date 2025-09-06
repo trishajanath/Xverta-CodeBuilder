@@ -1,0 +1,27 @@
+{
+  "name": "enhanced-nocode-platform",
+  "version": "1.0.0",
+  "description": "A sophisticated no-code platform like Lovable for generating full-stack applications using AI",
+  "scripts": {
+    "install:all": "npm install --prefix frontend && cd backend && pip install -r requirements.txt",
+    "start:backend": "cd backend && python main.py",
+    "start:frontend": "cd frontend && npm run dev",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "build": "cd frontend && npm run build",
+    "setup": "npm run install:all"
+  },
+  "keywords": ["no-code", "ai", "react", "fastapi", "code-generation", "lovable"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/enhanced-nocode-platform.git"
+  }
+}
